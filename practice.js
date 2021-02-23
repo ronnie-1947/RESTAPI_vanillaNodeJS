@@ -1,4 +1,5 @@
-const fs = require('fs')
-const {StringDecoder} = require('string_decoder')
+const crypto = require('crypto')
 
-fs.unlinkSync('./.data/test/newFile.json')
+const x = crypto.randomBytes(20)
+
+console.log(x.toString('hex'))
