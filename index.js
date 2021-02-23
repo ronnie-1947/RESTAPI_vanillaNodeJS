@@ -5,6 +5,8 @@ const url = require('url');
 const {StringDecoder} = require('string_decoder');
 const fs = require('fs');
 
+const handlers = require('./lib/handlers');
+const helpers = require('./lib/helpers');
 const _data = require('./lib/data');
 const config = require('./config');
 
@@ -56,7 +58,6 @@ function unifiedServer(req, res){
  
      let buffer = '';
      req.on('data', function(data){
-         console.log(data)
          buffer += decoder.write(data)
      })
  
@@ -73,9 +74,9 @@ function unifiedServer(req, res){
              queryStringObject,
              method,
              headers,
-             payload: buffer
+             payload: helpers.parseJsonToObject(buffer)
          }
- 
+         
          // Route the request to the handler specified in router
          chosenHandler(data, (statusCode, payload)=>{
  
@@ -97,21 +98,7 @@ function unifiedServer(req, res){
 }
 
 
-
-
-const handlers = {};
-
-handlers.ping = (data, callback)=>{
-
-    // Callback a http status code, and a payload object
-    callback(200)
-}
-
-// Not found handler
-handlers.notFound = (data, callback)=>{
-    callback(404);
-}
-
 const router = {
-    ping: handlers.ping
+    ping: handlers.ping,
+    users: handlers.users
 }
