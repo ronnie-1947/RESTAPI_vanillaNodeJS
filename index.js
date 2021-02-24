@@ -60,8 +60,8 @@ function unifiedServer(req, res){
      req.on('data', function(data){
          buffer += decoder.write(data)
      })
- 
      req.on('end', e=>{
+        
          buffer += decoder.end();
  
          // Choose the route
@@ -76,7 +76,7 @@ function unifiedServer(req, res){
              headers,
              payload: helpers.parseJsonToObject(buffer)
          }
-         
+        //  console.log(helpers.parseJsonToObject(buffer))
          // Route the request to the handler specified in router
          chosenHandler(data, (statusCode, payload)=>{
  
