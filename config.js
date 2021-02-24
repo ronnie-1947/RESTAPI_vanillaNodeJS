@@ -12,7 +12,12 @@ environments.staging = {
     httpsPort: 3001,
     envName: 'staging',
     hashingSecret: 'thisisasecret',
-    maxChecks:5
+    maxChecks:5,
+    twilio: {
+        accountSid: '',
+        authToken: '',
+        fromPhone: ''
+    }
 }
 
 // Production Environment
@@ -21,7 +26,12 @@ environments.production = {
     httpsPort: 5001,
     envName: 'production',
     hashingSecret: 'thisisasecret',
-    maxChecks:5
+    maxChecks:5,
+    twilio: {
+        accountSid: '',
+        authToken: '',
+        fromPhone: ''
+    }
 }
 
 const currentEnvironment = typeof(process.env.NODE_ENV) == 'string'? process.env.NODE_ENV.toLowerCase() : '';
